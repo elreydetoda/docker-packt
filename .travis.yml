@@ -16,7 +16,7 @@ script:
 after_success:
     # Check the branch is Master and its also not a PR causing a build
     - |
-      if [[ $TRAVIS_PULL_REQUEST = 'false' ]] && [[ $TRAVIS_BRANCH = 'armhfSupport' ]] ; then
+      if [[ $TRAVIS_PULL_REQUEST = 'false' ]] && [[ $TRAVIS_BRANCH = 'master' ]] ; then
          # Login and push image to Docker
          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
          docker push $REPO:armhf-latest
