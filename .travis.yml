@@ -1,9 +1,27 @@
-FROM resin/armhf-alpine-python:3.6.5
-MAINTAINER GhostWriters
-ADD root /
-WORKDIR /root
-RUN apk add --update git
-RUN git clone https://github.com/igbt6/Packt-Publishing-Free-Learning.git
-RUN cd Packt-Publishing-Free-Learning && git checkout add-cfgpath-argument
-RUN pip install -r /root/Packt-Publishing-Free-Learning/requirements.txt
-ENTRYPOINT ["/init"]
+sudo: required
+
+services:
+    - docker
+    
+language: bash
+
+script:
+    # Set repo to push to
+    - export REPO=ghostwriters/docker-packt
+    # Prepare qemu
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    # Build image
+    - docker build -t $REPO:armhf-latest -f dockerfile-armhf .
+
+after_success:
+    # Check the branch is Master and its also not a PR causing a build
+    - |
+      if [[ $TRAVIS_PULL_REQUEST = 'false' ]] && [[ $TRAVIS_BRANCH = 'armhfSupport' ]] ; then
+         # Login and push image to Docker
+         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+         docker push $REPO:armhf-latest
+      else
+         # Push not required
+         echo "Branch: $TRAVIS_BRANCH"
+         echo "Request Type: $TRAVIS_PULL_REQUEST"
+      fi
