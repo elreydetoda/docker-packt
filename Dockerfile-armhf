@@ -1,4 +1,4 @@
-FROM resin/raspberrypi3-alpine-python:3.6.5
+FROM lsiobase/alpine.python
 MAINTAINER GhostWriters
 ADD root /
 WORKDIR /root
