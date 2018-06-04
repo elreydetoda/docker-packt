@@ -11,12 +11,12 @@ script:
     # Prepare qemu
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     # Build image
-    - docker build -t $REPO:armhf-latest -f dockerfile-armhf .
+    - docker build -t $REPO:armhf-latest -f Dockerfile-armhf .
 
 after_success:
     # Check the branch is Master and its also not a PR causing a build
     - |
-      if [[ $TRAVIS_PULL_REQUEST = 'false' ]] && [[ $TRAVIS_BRANCH = 'armhfSupport' ]] ; then
+      if [[ $TRAVIS_PULL_REQUEST = 'false' ]] && [[ $TRAVIS_BRANCH = 'armhfsupport' ]] ; then
          # Login and push image to Docker
          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
          docker push $REPO:armhf-latest
