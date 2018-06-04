@@ -3,6 +3,7 @@ FROM lsiobase/alpine.python.armhf
 MAINTAINER GhostWriters
 ADD root /
 WORKDIR /root
+RUN apt-get install git -y
 RUN git clone https://github.com/biwhite/Packt-Publishing-Free-Learning.git
 RUN pip install -r /root/Packt-Publishing-Free-Learning/requirements.txt
 ENTRYPOINT ["/init"]
