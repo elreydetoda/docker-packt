@@ -1,6 +1,8 @@
 
 # Container for Packt daily download script #
 
+**Moved** to here: https://gitlab.com/elreydetoda/docker-packt
+
 This container fires up an alpine linux with python3 docker running cron, scheduled to claim the daily free book once per night at 1am.
 
 ## Run ##
