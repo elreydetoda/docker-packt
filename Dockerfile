@@ -9,4 +9,6 @@ RUN set -ex && \
 RUN set -ex && \
       python3 -m pip install packt pip pyasn1 six --upgrade
 
+RUN git clone https://github.com/packt-cli/Packt-Publishing-Free-Learning.git
+
 ENTRYPOINT ["/init"]
